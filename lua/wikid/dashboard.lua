@@ -18,7 +18,7 @@ M.open_buffer = function()
   end
 end
 
----@return string
+---@return nil
 M.show_dashboard = function()
   M.open_buffer()
 end

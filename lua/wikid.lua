@@ -1,10 +1,12 @@
 -- main module file
 local dashboard_module = require("wikid.dashboard")
+local daily_module = require("wikid.daily")
 
 ---@class Config
 ---@field opt string Your config option
 local config = {
-  wiki_dir = ".wiki"
+  wiki_dir = "~/.wiki",
+  daily_date_format = "%m-%d-%Y",
 }
 
 ---@class MyModule
@@ -21,7 +23,11 @@ M.setup = function(args)
 end
 
 M.dashboard = function()
-  return dashboard_module.show_dashboard()
+  dashboard_module.show_dashboard()
+end
+
+M.daily = function()
+  daily_module.open_daily_entry(config)
 end
 
 return M
