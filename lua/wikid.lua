@@ -7,6 +7,7 @@ local daily_module = require("wikid.daily")
 local config = {
   wiki_dir = "~/.wiki",
   daily_date_format = "%m-%d-%Y",
+  daily_subdir = "daily"
 }
 
 ---@class MyModule

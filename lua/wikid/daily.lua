@@ -11,8 +11,10 @@ end
 
 M.get_daily_entry_path = function(cfg)
   local dir = vim.fn.expand(cfg.wiki_dir)
-  vim.cmd("silent !mkdir -p " .. dir)
-  return string.format("%s/%s.md", dir, os.date(cfg.daily_date_format))
+  local sub = cfg.daily_subdir == '' and '' or "/" .. cfg.daily_subdir
+  vim.cmd("silent !mkdir -p " .. dir .. sub)
+  return string.format(
+    "%s/%s.md", dir .. sub, os.date(cfg.daily_date_format))
 end
 
 M.open_daily_entry = function(cfg)
@@ -23,10 +25,7 @@ M.open_daily_entry = function(cfg)
   if add_content then
     local buffer_number = vim.api.nvim_get_current_buf()
     vim.api.nvim_buf_set_lines(
-      buffer_number,
-      0,
-      10,
-      false,
+      buffer_number, 0, 10, false,
       { "# Daily - " .. os.date(cfg.daily_date_format) }
     )
   end
