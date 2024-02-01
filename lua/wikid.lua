@@ -1,10 +1,10 @@
 -- main module file
-local module = require("plugin_name.module")
+local dashboard_module = require("wikid.dashboard")
 
 ---@class Config
 ---@field opt string Your config option
 local config = {
-  opt = "Hello!",
+  wiki_dir = ".wiki"
 }
 
 ---@class MyModule
@@ -20,8 +20,8 @@ M.setup = function(args)
   M.config = vim.tbl_deep_extend("force", M.config, args or {})
 end
 
-M.hello = function()
-  return module.my_first_function(M.config.opt)
+M.dashboard = function()
+  return dashboard_module.show_dashboard()
 end
 
 return M
