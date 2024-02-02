@@ -1,6 +1,5 @@
 local fmt = string.format
 
----@class CustomModule
 local M = {
   buffer_number = -1,
   buffer_name = "WIKID_DASHBOARD",
@@ -18,7 +17,6 @@ M.open_buffer = function()
   end
 end
 
----@return nil
 M.show_dashboard = function()
   M.open_buffer()
 end

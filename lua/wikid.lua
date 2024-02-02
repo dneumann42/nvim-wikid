@@ -1,34 +1,31 @@
--- main module file
 local dashboard_module = require("wikid.dashboard")
 local daily_module = require("wikid.daily")
 
----@class Config
----@field opt string Your config option
 local config = {
   wiki_dir = "~/.wiki",
   daily_date_format = "%m-%d-%Y",
   daily_subdir = "daily"
 }
 
----@class MyModule
-local M = {}
+local M = {
+  setup_called = false
+}
 
----@type Config
 M.config = config
 
----@param args Config?
--- you can define your setup function here. Usually configurations can be merged, accepting outside params and
--- you can also put some validation here for those.
 M.setup = function(args)
+  M.setup_called = true
   M.config = vim.tbl_deep_extend("force", M.config, args or {})
 end
 
 M.dashboard = function()
+  assert(M.setup_called)
   dashboard_module.show_dashboard()
 end
 
 M.daily = function()
-  daily_module.open_daily_entry(config)
+  assert(M.setup_called)
+  daily_module.open_daily_entry(M.config)
 end
 
 return M
