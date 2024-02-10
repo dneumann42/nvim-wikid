@@ -1,6 +1,3 @@
-local dashboard_module = require("wikid.dashboard")
-local daily_module = require("wikid.daily")
-
 local config = {
   wiki_dir = "~/.wiki",
   daily_date_format = "%m-%d-%Y",
@@ -8,10 +5,9 @@ local config = {
 }
 
 local M = {
-  setup_called = false
+  setup_called = false,
+  config = config,
 }
-
-M.config = config
 
 M.setup = function(args)
   M.setup_called = true
@@ -19,13 +15,24 @@ M.setup = function(args)
 end
 
 M.dashboard = function()
-  assert(M.setup_called)
-  dashboard_module.show_dashboard()
+  if not M.setup_called then
+    return
+  end
+  require("wikid.dashboard").show_dashboard()
 end
 
 M.daily = function()
-  assert(M.setup_called)
-  daily_module.open_daily_entry(M.config)
+  if not M.setup_called then
+    return
+  end
+  require("wikid.daily").open_daily_entry(M.config)
+end
+
+M.commands = function()
+  local commands = { "dashboard", "daily" }
+  vim.ui.select(commands, { prompt = "Wikid" }, function(itm)
+    M[itm]()
+  end)
 end
 
 return M
