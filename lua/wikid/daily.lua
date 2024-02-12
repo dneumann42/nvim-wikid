@@ -1,13 +1,6 @@
 local M = {}
 
-local function file_exists(name)
-  local f = io.open(name, "r")
-  if f ~= nil then
-    io.close(f)
-    return true
-  end
-  return false
-end
+local tools = require('wikid.tools')
 
 M.get_daily_entry_path = function(cfg)
   local dir = vim.fn.expand(cfg.wiki_dir)
@@ -19,7 +12,7 @@ end
 
 M.open_daily_entry = function(cfg)
   local entry_path = M.get_daily_entry_path(cfg)
-  local add_content = not file_exists(entry_path)
+  local add_content = not tools.file_exists(entry_path)
   vim.cmd('e ' .. entry_path)
 
   if add_content then
