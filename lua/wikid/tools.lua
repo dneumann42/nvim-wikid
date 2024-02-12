@@ -23,6 +23,6 @@ local function file_exists(name)
 end
 
 return {
-  file_exists,
-  get_files_in_directory
+  file_exists = file_exists,
+  get_files_in_directory = get_files_in_directory,
 }
