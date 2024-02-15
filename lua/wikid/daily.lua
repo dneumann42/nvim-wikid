@@ -1,17 +1,19 @@
-local M = {}
+local Daily = {}
 
-local tools = require('wikid.tools')
+local tools = require('core.tools')
+local platform = require('core.platform')
 
-M.get_daily_entry_path = function(cfg)
+Daily.get_daily_entry_path = function(cfg)
   local dir = vim.fn.expand(cfg.wiki_dir)
   local sub = cfg.daily_subdir == '' and '' or "/" .. cfg.daily_subdir
-  vim.cmd("silent !mkdir -p " .. dir .. sub)
+  local path = tools.join_paths(dir, sub)
+  platform.make_directory(path)
   return string.format(
-    "%s/%s.md", dir .. sub, os.date(cfg.daily_date_format))
+    "%s/%s.md", path, os.date(cfg.daily_date_format))
 end
 
-M.open_daily_entry = function(cfg)
-  local entry_path = M.get_daily_entry_path(cfg)
+Daily.open_daily_entry = function(cfg)
+  local entry_path = Daily.get_daily_entry_path(cfg)
   local add_content = not tools.file_exists(entry_path)
   vim.cmd('e ' .. entry_path)
 
@@ -24,4 +26,4 @@ M.open_daily_entry = function(cfg)
   end
 end
 
-return M
+return Daily

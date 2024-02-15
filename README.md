@@ -43,10 +43,17 @@ Can create and edit templates that you can use when creating a new note.
 :WikidEditTemplate
 ```
 
+Can create note note using a template
+
+```lua
+:WikidNewNoteFromTemplate
+```
+
 ## Planned Features
 
 + [ ] [2/4] Daily Notes
-  - [X] Create and Edit daily note
+  - [X] Create and Edit daily notes
+  - [X] Note templates
   - [X] Configure daily note directory
   - [ ] Configure daily note date format
   - [ ] Daily note templates

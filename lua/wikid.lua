@@ -5,49 +5,38 @@ local config = {
   templates_subdir = "templates",
 }
 
-local M = {
+local Wikid = {
   setup_called = false,
   config = config,
 }
 
-M.setup = function(args)
-  M.setup_called = true
-  M.config = vim.tbl_deep_extend("force", M.config, args or {})
+local commands = {}
+local function cmd(name, fn)
+  Wikid[name] = fn
+  table.insert(commands, name)
 end
 
-M.dashboard = function()
-  if not M.setup_called then
-    return
-  end
-  require("wikid.dashboard").show_dashboard()
+function Wikid.setup(args)
+  Wikid.config = vim.tbl_deep_extend("force", Wikid.config, args or {})
 end
 
-M.daily = function()
-  if not M.setup_called then
-    return
-  end
-  require("wikid.daily").open_daily_entry(M.config)
-end
+local Daily = require("wikid.daily")
+local Dashboard = require("wikid.dashboard")
+local Notes = require("wikid.notes")
 
-M.new_template = function()
-  if not M.setup_called then
-    return
-  end
-  require("wikid.notes").new_template(M.config)
-end
+cmd('dashboard', function() Dashboard.show_dashboard() end)
+cmd('daily', function() Daily.open_daily_entry(Wikid.config) end)
+cmd('new_template', function() Notes.new_template(Wikid.config) end)
+cmd('edit_template', function() Notes.edit_template(Wikid.config) end)
+cmd('new_note_from_template', function() Notes.new_note_from_template(Wikid.config) end)
+cmd('new_note', function() Notes.new_note(Wikid.config) end)
 
-M.edit_template = function()
-  if not M.setup_called then
-    return
-  end
-  require("wikid.notes").edit_template(M.config)
-end
-
-M.commands = function()
-  local commands = { "dashboard", "daily", "new_template" }
+function Wikid.commands()
   vim.ui.select(commands, { prompt = "Wikid" }, function(itm)
-    M[itm]()
+    if Wikid[itm] and type(Wikid[itm]) == 'function' then
+      Wikid[itm]()
+    end
   end)
 end
 
-return M
+return Wikid
