@@ -31,12 +31,12 @@ end
 
 function Dashboard.generate_dashboard_lines(cfg)
   local t = {
-    h("Dashboard - " .. os.date("%m-%d-%Y")),
+    h("Dashboard"),
     "",
     h("Recent files", 2),
   }
-  for i = 1, #Dashboard.last_opened do
-    insert(t, Dashboard.last_opened[i])
+  for i = 1, math.min(#Dashboard.last_opened, 5) do
+    insert(t, fmt("[%s](%s)", Dashboard.last_opened[i], Dashboard.last_opened[i]))
   end
   return t
 end
@@ -48,6 +48,7 @@ function Dashboard.open_buffer(cfg)
     Dashboard.buffer_number = vim.api.nvim_get_current_buf()
     vim.api.nvim_buf_set_lines(0, 0, -1, true, {})
     vim.api.nvim_buf_set_text(0, 0, 0, 0, 0, Dashboard.generate_dashboard_lines())
+    vim.api.nvim_buf_set_option(0, 'filetype', 'markdown')
     vim.opt_local.readonly = true -- make readonly
   end
 end
