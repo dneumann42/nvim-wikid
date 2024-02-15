@@ -47,7 +47,31 @@ local function join_paths(...)
   return vim.fn.resolve(s)
 end
 
-_G.j = join_paths
+local function relative_path(base, path)
+  local a, b = vim.fn.resolve(vim.fn.expand(base)), vim.fn.resolve(path)
+  return string.sub(b, #a + 2, #b)
+end
+
+local function table_contains(tbl, itm)
+  for i = 1, #tbl do
+    if tbl[i] == itm then
+      return true
+    end
+  end
+  return false
+end
+
+local function insert_or_move_to_front(tbl, itm)
+  if table_contains(tbl, itm) then
+    for i = 1, #tbl do
+      if tbl[i] == itm then
+        table.remove(tbl, i)
+        break
+      end
+    end
+  end
+  table.insert(tbl, 1, itm)
+end
 
 return {
   file_exists = file_exists,
@@ -55,4 +79,6 @@ return {
   splitlines = splitlines,
   join_paths = join_paths,
   basepath = basepath,
+  relative_path = relative_path,
+  insert_or_move_to_front = insert_or_move_to_front,
 }

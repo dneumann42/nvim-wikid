@@ -55,13 +55,13 @@ function Notes.new_note_from_template(cfg)
     end
 
     local f = io.open(join(dir, itm), "r")
-    local t
+    local templ
     if f then
-      t = f:read("*a")
+      templ = f:read("*a")
       f:close()
     end
 
-    Notes.new_note(cfg, t)
+    Notes.new_note(cfg, templ)
   end)
 end
 
