@@ -35,17 +35,7 @@ Dashboard.setup(Wikid.config)
 
 cmd('dashboard', Dashboard.show_dashboard)
 cmd('daily', Daily.open_daily_entry)
-cmd('daily_entries', function()
-  vim.ui.select(
-    Daily.get_daily_entries(Wikid.config),
-    { prompt = "Daily entry" },
-    function(itm)
-      if itm ~= nil then
-        local f = tools.join_paths(Daily.get_daily_dir(Wikid.config), itm)
-        vim.cmd('e ' .. f)
-      end
-    end)
-end)
+cmd('daily_entries', Daily.open_old_daily_entry)
 cmd('new_template', Notes.new_template)
 cmd('edit_template', Notes.edit_template)
 cmd('new_note_from_template', Notes.new_note_from_template)

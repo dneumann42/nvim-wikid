@@ -57,4 +57,16 @@ function Daily.open_daily_entry(cfg)
   end
 end
 
+function Daily.open_old_daily_entry(cfg)
+  vim.ui.select(
+    Daily.get_daily_entries(cfg),
+    { prompt = "Daily entry" },
+    function(itm)
+      if itm ~= nil then
+        local f = tools.join_paths(Daily.get_daily_dir(cfg), itm)
+        vim.cmd('e ' .. f)
+      end
+    end)
+end
+
 return Daily
