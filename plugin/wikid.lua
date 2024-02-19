@@ -1,6 +1,7 @@
 local wikid = require("wikid")
 vim.api.nvim_create_user_command("WikidDashboard", wikid.dashboard, {})
 vim.api.nvim_create_user_command("WikidDaily", wikid.daily, {})
+vim.api.nvim_create_user_command("WikidDailyEntries", wikid.daily_entries, {})
 vim.api.nvim_create_user_command("WikidCommands", wikid.commands, {})
 vim.api.nvim_create_user_command("WikidNewTemplate", wikid.new_template, {})
 vim.api.nvim_create_user_command("WikidEditTemplate", wikid.edit_template, {})
