@@ -1,9 +1,12 @@
 local wikid = require("wikid")
-vim.api.nvim_create_user_command("WikidDashboard", wikid.dashboard, {})
-vim.api.nvim_create_user_command("WikidDaily", wikid.daily, {})
-vim.api.nvim_create_user_command("WikidDailyEntries", wikid.daily_entries, {})
-vim.api.nvim_create_user_command("WikidCommands", wikid.commands, {})
-vim.api.nvim_create_user_command("WikidNewTemplate", wikid.new_template, {})
-vim.api.nvim_create_user_command("WikidEditTemplate", wikid.edit_template, {})
-vim.api.nvim_create_user_command("WikidNewNoteFromTemplate", wikid.new_note_from_template, {})
-vim.api.nvim_create_user_command("WikidNewNote", wikid.new_note, {})
+local tools = require("core.tools")
+
+for _, command in pairs(wikid.cmds) do
+  -- local xs = tools.
+  local words = tools.split_underline(command)
+  local s = 'Wikid'
+  for _, word in pairs(words) do
+    s = s .. string.upper(word:sub(1, 1)) .. word:sub(2, #word)
+  end
+  vim.api.nvim_create_user_command(s, wikid[command], {})
+end

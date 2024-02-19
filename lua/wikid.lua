@@ -19,6 +19,8 @@ local function cmd(name, fn)
   table.insert(commands, name)
 end
 
+Wikid.cmds = commands
+
 function Wikid.setup(args)
   Wikid.config = vim.tbl_deep_extend("force", Wikid.config, args or {})
 end
@@ -26,6 +28,7 @@ end
 local tools = require("core.tools")
 
 local Cache = require("core.wikid_cache")
+local Tasks = require("markdown.tasks")
 local Daily = require("wikid.daily")
 local Dashboard = require("wikid.dashboard")
 local Notes = require("wikid.notes")
@@ -40,13 +43,13 @@ cmd('new_template', Notes.new_template)
 cmd('edit_template', Notes.edit_template)
 cmd('new_note_from_template', Notes.new_note_from_template)
 cmd('new_note', Notes.new_note)
-
-function Wikid.commands()
+cmd('toggle_task_state', Tasks.toggle_task_state)
+cmd('commands', function()
   vim.ui.select(commands, { prompt = "Wikid" }, function(itm)
     if Wikid[itm] and type(Wikid[itm]) == 'function' then
       Wikid[itm]()
     end
   end)
-end
+end)
 
 return Wikid

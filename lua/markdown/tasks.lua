@@ -100,6 +100,7 @@ end
 
 return {
   TaskState = TaskState,
+  toggle_task_state = toggle_task_state,
   extract_tasks = extract_tasks,
   extract_completed_tasks = extract_completed_tasks,
   extract_uncompleted_tasks = extract_uncompleted_tasks,

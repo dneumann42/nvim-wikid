@@ -46,6 +46,14 @@ local function splitlines(str)
     return lines
 end
 
+local function split_underline(str)
+    local words = {}
+    for s in str:gmatch("[^_]+") do
+        table.insert(words, s)
+    end
+    return words
+end
+
 local function basepath(str, sep)
     sep = sep or '/'
     return str:match("(.*" .. sep .. ")")
@@ -107,6 +115,7 @@ return {
     basepath = basepath,
     filter = filter,
     file_contents = file_contents,
+    split_underline = split_underline,
     relative_path = relative_path,
     insert_or_move_to_front = insert_or_move_to_front,
     replace_char = replace_char,
