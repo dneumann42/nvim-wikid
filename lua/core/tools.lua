@@ -1,3 +1,7 @@
+local function replace_char(str, pos, r)
+    return str:sub(1, pos - 1) .. r .. str:sub(pos + 1)
+end
+
 local function file_contents(path)
     local f = io.open(path)
     if f then
@@ -105,4 +109,5 @@ return {
     file_contents = file_contents,
     relative_path = relative_path,
     insert_or_move_to_front = insert_or_move_to_front,
+    replace_char = replace_char,
 }

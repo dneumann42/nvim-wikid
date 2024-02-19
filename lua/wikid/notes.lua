@@ -65,4 +65,8 @@ function Notes.new_note_from_template(cfg)
   end)
 end
 
+function Notes.open_note(cfg)
+  local dir = Notes.get_templates_path(cfg)
+end
+
 return Notes

@@ -30,7 +30,6 @@ function Daily.open_daily_entry(cfg)
   vim.cmd('e ' .. entry_path)
 
   local tasks = {}
-
   if cfg.carry_forward_tasks then
     local ds = Daily.get_daily_entries(cfg)
     if #ds > 0 then

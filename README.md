@@ -10,6 +10,8 @@ Install using your preferred package manager
 
 `"dneumann42/nvim-wikid"`
 
+Depends on `nvim-lua/plenary.nvim`
+
 ## Usage
 
 You can select a wikid command to run using `:WikidCommands`
@@ -55,15 +57,16 @@ Can create note note using a template
   - [X] Create and Edit daily notes
   - [X] Note templates
   - [X] Configure daily note directory
-  - [ ] Configure daily note date format
+  - [X] Configure daily note date format
   - [ ] Daily note templates
 
-+ [ ] [0/6] Notes
-  - [ ] [2/3] Templates
++ [ ] [1/7] Notes
+  - [X] [3/3] Templates
     + [X] New templates
     + [X] Edit templates
-    + [ ] Create note from template
-  - [ ] Create blank note
+    + [X] Create note from template
+  - [X] Create blank note
+  - [ ] Quick open note
   - [ ] Move note to directory
   - [ ] Update note links
   - [ ] Validate note links
